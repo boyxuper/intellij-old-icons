@@ -24,6 +24,10 @@ _BACKUP_DIR = 'backup'
 
 def lookup_yaml(path):
     path = os.path.join(_CONFIG_DIR, path)
+
+    if not os.path.isdir(path):
+        return []
+
     file_list = os.listdir(os.path.join(_CONFIG_DIR, path))
     full_filenames = map(lambda filename: os.path.join(path, filename), file_list)
     yaml_filter = lambda filename: \
@@ -41,7 +45,24 @@ def run():
     #do patch jar
     #replace jar
 
+    print 'looking up base configs...'
     yaml_list = lookup_yaml(os.path.join(_CONFIG_DIR, _CONFIG_DIR_BASE))
+    print '%d configs found.' % len(yaml_list)
+    if yaml_list:
+        print 'processing...'
+
+    for filename in yaml_list:
+        with open(filename, 'rb') as file:
+            process_yaml(file)
+
+    print
+    print 'installed product version: [%s]...' % dump_version()
+    print 'looking up configs for [%s]...' % dump_version()
+    yaml_list = lookup_yaml(os.path.join(_CONFIG_DIR, dump_version()))
+    print '%d configs found.' % len(yaml_list)
+    if yaml_list:
+        print 'processing...'
+
     for filename in yaml_list:
         with open(filename, 'rb') as file:
             process_yaml(file)
@@ -116,8 +137,6 @@ if __name__ == '__main__':
     _BACKUP_DIR = os.path.join(_BASE_DIR, _BACKUP_DIR, session_name).replace('/', os.sep)
     if not os.path.isdir(_BACKUP_DIR):
         os.mkdir(_BACKUP_DIR)
-
-    print `dump_version()`
 
     run()
 
