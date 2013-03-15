@@ -5,4 +5,4 @@ source: lib_icons
 actions:
   auto_replace: True #replace as directory structure
   replace:
-    - ['fileTypes/css.png', 'css.png']  #first is source, relative path
+    - ['css.png', 'fileTypes/css.png']  #first is source, relative path

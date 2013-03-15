@@ -70,7 +70,7 @@ def process_yaml(yaml_file):
                     print 'writing auto replace: ', rel_name, full_path
                     zipfile.write_file(rel_name, full_path)
 
-        for archive_icon, source_icon in actions['replace']:
+        for source_icon, archive_icon in actions['replace']:
             source_icon = os.path.join(source_path, source_icon)
             if not os.path.isfile(source_icon) or not os.access(source_icon, os.R_OK):
                 print 'cannot access source icon: [%s]' % source_icon
