@@ -45,7 +45,10 @@ def run():
     #parse & merge modify request
     #do patch jar
     #replace jar
+    print
+    print 'installed product version: [%s]...' % dump_version()
 
+    print
     print 'looking up base configs...'
     yaml_list = lookup_yaml(os.path.join(_CONFIG_DIR, _CONFIG_DIR_BASE))
     print '%d configs found.' % len(yaml_list)
@@ -57,7 +60,6 @@ def run():
             process_yaml(file)
 
     print
-    print 'installed product version: [%s]...' % dump_version()
     print 'looking up configs for [%s]...' % dump_version()
     yaml_list = lookup_yaml(os.path.join(_CONFIG_DIR, dump_version()))
     print '%d configs found.' % len(yaml_list)
@@ -134,11 +136,12 @@ if __name__ == '__main__':
     _CONFIG_DIR = os.path.join(_BASE_DIR, _CONFIG_DIR).replace('/', os.sep)
     _ICON_DIR = os.path.join(_BASE_DIR, _ICON_DIR).replace('/', os.sep)
 
-    session_name = 'session-%s' % time.time()
+    session_name = 'session-%s-%s' % (dump_version(), time.time())
     _BACKUP_DIR = os.path.join(_BASE_DIR, _BACKUP_DIR, session_name).replace('/', os.sep)
     if not os.path.isdir(_BACKUP_DIR):
         os.mkdir(_BACKUP_DIR)
 
     run()
 
-    print 'ALL DONE, HAVE FUN!'
+    print
+    print '***ALL DONE, HAVE FUN!***'
