@@ -83,6 +83,8 @@ def process_yaml(yaml_file):
 
             zipfile.write_file(archive_icon, source_icon)
 
+        print 'writing back, plz wait...'
+
     backup_dir = os.path.dirname(os.path.join(_BACKUP_DIR, request['target']))
     if not os.path.isdir(backup_dir):
         os.makedirs(backup_dir)
@@ -110,3 +112,5 @@ if __name__ == '__main__':
     print `dump_version()`
 
     run()
+
+    print 'ALL DONE, HAVE FUN!'
