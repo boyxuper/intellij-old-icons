@@ -16,11 +16,12 @@ class ReplaceZipFile(object):
     input_file = None
     output_file = None
 
-    def __init__(self, original, target):
+    def __init__(self, original, target, mode=zipfile.ZIP_DEFLATED):
         self.modify_list = {}
         self.remove_list = []
         self.original = original
         self.target = target
+        self.target_mode = mode
 
     def remove_file(self, filename):
         if filename not in self.remove_list:
@@ -41,7 +42,7 @@ class ReplaceZipFile(object):
 
     def __enter__(self):
         self.input_file = zipfile.ZipFile(self.original, 'r')
-        self.output_file = zipfile.ZipFile(self.target, 'w')
+        self.output_file = zipfile.ZipFile(self.target, 'w', self.target_mode)
 
         self.input_file.__enter__()
         self.output_file.__enter__()
@@ -59,7 +60,7 @@ class ReplaceZipFile(object):
                 continue
 
             if item.filename in written_file_list:
-                print 'skipping duplicated file entry:', item.filename
+                print '[zipfile]skipping duplicated file entry:', item.filename
                 continue
 
             written_file_list.append(item.filename)

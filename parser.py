@@ -2,6 +2,11 @@
 # -*- coding: utf-8 -*-
 
 """entry of program
+
+ - load yaml list
+ - parse & merge modify request
+ - do patch jar
+ - replace jar
 """
 
 __author__ = 'johnx'
@@ -23,6 +28,8 @@ _BUILD_FILE = 'build.txt'
 _TMP_FILE = '~icon_replace.tmp'
 _BACKUP_DIR = 'backup'
 
+#TODO: merge request before do update?
+#TODO: options for allow add new file for non-existed files in original archive
 def lookup_yaml(path):
     path = os.path.join(_CONFIG_DIR, path)
 
@@ -41,10 +48,6 @@ def lookup_yaml(path):
     return yaml_list
 
 def run():
-    #load yaml list
-    #parse & merge modify request
-    #do patch jar
-    #replace jar
     print
     print 'installed product version: [%s]...' % dump_version()
 
@@ -65,6 +68,7 @@ def run():
     print '%d configs found.' % len(yaml_list)
     if yaml_list:
         print 'processing...'
+        print
 
     for filename in yaml_list:
         with open(filename, 'rb') as file:
@@ -116,6 +120,7 @@ def process_yaml(yaml_file):
             zipfile.write_file(archive_icon, source_icon)
 
         print 'writing back, plz wait...'
+        print
 
     backup_dir = os.path.dirname(os.path.join(_BACKUP_DIR, request['target']))
     if not os.path.isdir(backup_dir):
