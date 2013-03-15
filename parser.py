@@ -55,12 +55,12 @@ def process_yaml(yaml_file):
     auto_replace = actions['auto_replace']
     actions.setdefault('replace', [])
 
-    if not os.path.isfile(target_path) or os.access(target_path, os.R_OK | os.W_OK):
+    if not os.path.isfile(target_path) or not os.access(target_path, os.R_OK | os.W_OK):
         print 'cannot access target jar: [%s]' % target_path
         return False
 
-    if not os.path.isfile(_TMP_FILE) or os.access(_TMP_FILE, os.W_OK):
-        print 'cannot write to temp file: [%s]' % target_path
+    if os.path.isfile(_TMP_FILE) and not os.access(_TMP_FILE, os.W_OK):
+        print 'cannot write to temp file: [%s]' % _TMP_FILE
         return False
 
     with ReplaceZipFile(target_path, _TMP_FILE) as zipfile:
