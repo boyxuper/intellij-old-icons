@@ -1,0 +1,6 @@
+#author johnx
+target: plugins/php/lib/php.jar
+source: plugins_php_lib_php
+
+actions:
+  auto_replace: True #replace as directory structure
