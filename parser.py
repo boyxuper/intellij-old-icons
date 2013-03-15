@@ -48,11 +48,12 @@ def run():
 
 def process_yaml(yaml_file):
     request = yaml.load(yaml_file)
-    source_path = os.path.join(_ICON_DIR, request['source'])
+    source_path = os.path.join(_ICON_DIR, request['source'].replace('/', os.sep))
     source_path_auto = os.path.join(source_path, _ICON_DIR_AUTO)
-    target_path = os.path.join(_INSTALL_DIR, request['target'])
+    target_path = os.path.join(_INSTALL_DIR, request['target'].replace('/', os.sep))
     actions = request['actions']
     auto_replace = actions['auto_replace']
+    actions.setdefault('replace', [])
 
     with ReplaceZipFile(target_path, _TMP_FILE) as zipfile:
         if auto_replace:
@@ -84,7 +85,7 @@ def process_yaml(yaml_file):
 
     backup_dir = os.path.dirname(os.path.join(_BACKUP_DIR, request['target']))
     if not os.path.isdir(backup_dir):
-        os.mkdir(backup_dir)
+        os.makedirs(backup_dir)
     os.rename(target_path, os.path.join(_BACKUP_DIR, request['target']))
     os.rename(_TMP_FILE, target_path)
 
