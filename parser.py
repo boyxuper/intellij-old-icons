@@ -56,6 +56,7 @@ def process_yaml(yaml_file):
 
     with ReplaceZipFile(target_path, _TMP_FILE) as zipfile:
         if auto_replace:
+            counter = 0
             for top, dirs, files in os.walk(source_path_auto):
                 rel_path = os.path.relpath(top, source_path_auto)
                 for filename in files:
@@ -67,8 +68,11 @@ def process_yaml(yaml_file):
                         continue
 
                     rel_name = os.path.join(rel_path, filename).replace(os.sep, '/')
-                    print 'writing auto replace: ', rel_name, full_path
+                    #print 'writing auto replace: ', rel_name, full_path
                     zipfile.write_file(rel_name, full_path)
+                    counter += 1
+
+            print '[%s] auto replaced %d file(s)' % (request['target'], counter)
 
         for source_icon, archive_icon in actions['replace']:
             source_icon = os.path.join(source_path, source_icon)
