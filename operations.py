@@ -6,6 +6,7 @@ __date__ = '3/15/13 10:23 AM'
 
 import zipfile
 
+
 class ReplaceZipFile(object):
     modify_list = None
     remove_list = None
@@ -31,14 +32,14 @@ class ReplaceZipFile(object):
             del self.modify_list[filename]
 
     def write_file(self, archive_name, source_filename):
-        with open(source_filename, 'rb') as file:
-            return self.write_str(archive_name, file.read())
+        with open(source_filename, 'rb') as source_file:
+            return self.write_str(archive_name, source_file.read())
 
-    def write_str(self, archive_name, buffer):
+    def write_str(self, archive_name, content):
         if archive_name in self.remove_list:
             self.remove_list.remove(archive_name)
 
-        self.modify_list[archive_name] = buffer
+        self.modify_list[archive_name] = content
 
     def __enter__(self):
         self.input_file = zipfile.ZipFile(self.original, 'r')
@@ -66,12 +67,12 @@ class ReplaceZipFile(object):
             written_file_list.append(item.filename)
 
             if item.filename in self.modify_list:
-                buffer = self.modify_list[item.filename]
+                content = self.modify_list[item.filename]
                 del self.modify_list[item.filename]
             else:
-                buffer = input_file.read(item.filename)
+                content = input_file.read(item.filename)
 
-            output_file.writestr(item, buffer)
+            output_file.writestr(item, content)
 
         self.modify_list = {}
         self.remove_list = []
