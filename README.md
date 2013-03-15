@@ -1,7 +1,7 @@
 intellij-old-icons
 ==================
 
-***cannot work with new intellij icons***
+***FOR GUYS WHO CANNOT WORK WITH NEW INTELLIJ ICON SETS***
 
 HOW TO USE
 ------------------
