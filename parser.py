@@ -8,6 +8,8 @@
  - do patch jar
  - replace jar
 """
+#TODO: merge request before do update?
+#TODO: options for allow add new file for non-existed files in original archive
 
 __author__ = 'johnx'
 __date__ = '3/15/13 7:39 AM'
@@ -28,8 +30,7 @@ _BUILD_FILE = 'build.txt'
 _TMP_FILE = '~icon_replace.tmp'
 _BACKUP_DIR = 'backup'
 
-#TODO: merge request before do update?
-#TODO: options for allow add new file for non-existed files in original archive
+
 def lookup_yaml(path):
     path = os.path.join(_CONFIG_DIR, path)
 
@@ -46,6 +47,7 @@ def lookup_yaml(path):
     yaml_list = filter(yaml_filter, full_filenames)
 
     return yaml_list
+
 
 def run():
     print
@@ -73,6 +75,7 @@ def run():
     for filename in yaml_list:
         with open(filename, 'rb') as file:
             process_yaml(file)
+
 
 def process_yaml(yaml_file):
     request = yaml.load(yaml_file)
@@ -128,11 +131,12 @@ def process_yaml(yaml_file):
     os.rename(target_path, os.path.join(_BACKUP_DIR, request['target']))
     os.rename(_TMP_FILE, target_path)
 
+
 def dump_version():
     build_file = os.path.join(_INSTALL_DIR, _BUILD_FILE)
     if os.path.isfile(build_file) and os.access(build_file, os.R_OK):
-        with open(build_file, 'rb') as file:
-            return file.read()
+        with open(build_file, 'rb') as _file:
+            return _file.read()
 
     return None
 
