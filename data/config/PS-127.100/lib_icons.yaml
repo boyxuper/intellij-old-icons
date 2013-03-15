@@ -1,6 +1,6 @@
 #author johnx
 target: lib/icons.jar
-source: lib_icons
+source: PS-127.100/lib_icons
 
 actions:
   auto_replace: True #replace as directory structure

@@ -1,6 +1,6 @@
 #author johnx
 target: plugins/less/lib/less.jar
-source: plugins_less_lib_less
+source: PS-127.100/plugins_less_lib_less
 
 actions:
   auto_replace: True #replace as directory structure
