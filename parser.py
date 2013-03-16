@@ -16,6 +16,7 @@ __date__ = '3/15/13 7:39 AM'
 
 import yaml
 import os
+import sys
 from operations import ReplaceZipFile
 import time
 
@@ -29,6 +30,7 @@ _INSTALL_DIR = r'E:\Program Files (x86)\JetBrains\PyCharm 2.7'
 _BUILD_FILE = 'build.txt'
 _TMP_FILE = '~icon_replace.tmp'
 _BACKUP_DIR = 'backup'
+_INSTALLED_VERSION = None
 
 
 def lookup_yaml(path):
@@ -40,10 +42,10 @@ def lookup_yaml(path):
     file_list = os.listdir(os.path.join(_CONFIG_DIR, path))
     full_filenames = map(lambda filename: os.path.join(path, filename), file_list)
     yaml_filter = lambda filename: \
-                            filename.endswith('.yaml') \
-                        and not filename.split(os.sep)[-1].startswith('.') \
-                        and os.path.isfile(filename) \
-                        and os.access(filename, os.R_OK)
+        filename.endswith('.yaml') \
+        and not filename.split(os.sep)[-1].startswith('.') \
+        and os.path.isfile(filename) \
+        and os.access(filename, os.R_OK)
     yaml_list = filter(yaml_filter, full_filenames)
 
     return yaml_list
@@ -61,8 +63,8 @@ def run():
         print 'processing...'
 
     for filename in yaml_list:
-        with open(filename, 'rb') as file:
-            process_yaml(file)
+        with open(filename, 'rb') as yaml_file:
+            process_yaml(yaml_file)
 
     print
     print 'looking up configs for [%s]...' % dump_version()
@@ -73,8 +75,8 @@ def run():
         print
 
     for filename in yaml_list:
-        with open(filename, 'rb') as file:
-            process_yaml(file)
+        with open(filename, 'rb') as yaml_file:
+            process_yaml(yaml_file)
 
 
 def process_yaml(yaml_file):
@@ -133,22 +135,27 @@ def process_yaml(yaml_file):
 
 
 def dump_version():
+    global _INSTALLED_VERSION
+    if _INSTALLED_VERSION:
+        return _INSTALLED_VERSION
+
     build_file = os.path.join(_INSTALL_DIR, _BUILD_FILE)
     if os.path.isfile(build_file) and os.access(build_file, os.R_OK):
         with open(build_file, 'rb') as _file:
-            return _file.read()
+            _INSTALLED_VERSION = _file.read()
 
-    return None
+    return _INSTALLED_VERSION
 
 if __name__ == '__main__':
     _BASE_DIR = os.path.abspath(os.path.dirname(__file__)).replace('/', os.sep)
     _CONFIG_DIR = os.path.join(_BASE_DIR, _CONFIG_DIR).replace('/', os.sep)
     _ICON_DIR = os.path.join(_BASE_DIR, _ICON_DIR).replace('/', os.sep)
 
+    #make backup dir
     session_name = 'session-%s-%s' % (dump_version(), time.time())
     _BACKUP_DIR = os.path.join(_BASE_DIR, _BACKUP_DIR, session_name).replace('/', os.sep)
     if not os.path.isdir(_BACKUP_DIR):
-        os.mkdir(_BACKUP_DIR)
+        os.makedirs(_BACKUP_DIR)
 
     run()
 
