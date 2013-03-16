@@ -4,3 +4,6 @@ source: shared/lib_icons
 
 actions:
   auto_replace: True #replace as directory structure
+  replace:
+     - ['refresh.png', 'actions/refresh.png']    #pick one u like
+#     - ['refresh_new.png', 'actions/refresh.png']
