@@ -1,9 +1,8 @@
 intellij-old-icons
 ==================
-
-###FOR GUYS WHO CANNOT WORK WITH NEW INTELLIJ ICON SETS
-###ANY SUGGESTION IS WELCOME
-###YOU CAN ADD ICONS AND MODIFY CONFIG YOURSELF IF YOU WANT
+####FOR GUYS WHO CANNOT WORK WITH NEW INTELLIJ ICON SETS
+####ANY SUGGESTION IS WELCOME
+####YOU CAN ADD ICONS AND MODIFY CONFIG YOURSELF IF YOU WANT
 
 Compatibility:
 ------------------
@@ -26,7 +25,7 @@ Python 2.7 & PyYAML
 
 Status:
 ------------------
-core functions is finished
-more icon
-more product config & test
-maybe guess _INSTALL_DIR
+ - core functions is finished
+ - more icon
+ - more product config & test
+ - maybe guess _INSTALL_DIR
