@@ -116,13 +116,17 @@ def process_yaml(yaml_file):
 
             print '[%s] auto replaced %d file(s)' % (request['target'], counter)
 
+        counter = 0
         for source_icon, archive_icon in actions['replace']:
             source_icon = os.path.join(source_path, source_icon)
             if not os.path.isfile(source_icon) or not os.access(source_icon, os.R_OK):
-                print 'cannot access source icon: [%s]' % source_icon
+                print 'cannot access source file: [%s]' % source_icon
                 continue
 
             zipfile.write_file(archive_icon, source_icon)
+            counter += 1
+
+        print '[%s] manually replaced %d file(s)' % (request['target'], counter)
 
         print 'writing back, plz wait...'
         print
