@@ -1,0 +1,6 @@
+#author johnx
+target: lib/icons.jar
+source: shared/lib_icons
+
+actions:
+  auto_replace: True #replace as directory structure

@@ -7,13 +7,16 @@ HOW TO USE
 ------------------
 
 current version only work with
- - PHPStorm 6.0(PS-127.100)
- - PyCharm 2.7(PY-125.57)
+ - PHPStorm 6.0(PS-127.100)(tested on win7 x64 with python 2.7 x64)
+ - PyCharm 2.7(PY-125.57)(tested on win7 x64 with python 2.7 x64)
+ - PyCharm 2.7.1(PY-125.57)(tested on MacOSX 10.8 x64 with default python)
 
 Usage:
- - open parser.py
+ - easy_install pyyaml (you need prefix `sudo` for *nix system)
+ - edit `parser.py`
  - change variable '_INSTALL_DIR' to your installation dir
- - run parser.py
+ - run `parser.py`
  - ***ALL DONE***
 
- ***ADD ICONS AND MODIFY CONFIG IF YOU WANT***
+ ***ANY SUGGESTION IS WELCOME***
+ ***YOU CAN ADD ICONS AND MODIFY CONFIG YOURSELF IF YOU WANT***
