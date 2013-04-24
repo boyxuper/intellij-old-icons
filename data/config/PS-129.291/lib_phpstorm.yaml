@@ -1,0 +1,6 @@
+#author johnx
+target: lib/phpstorm.jar
+source: PS-127.100/lib_phpstorm
+
+actions:
+  auto_replace: True #replace as directory structure

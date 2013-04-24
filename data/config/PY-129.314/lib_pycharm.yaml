@@ -1,0 +1,6 @@
+#author johnx
+target: lib/pycharm.jar
+source: PY-125.57/lib_pycharm
+
+actions:
+  auto_replace: True #replace as directory structure
